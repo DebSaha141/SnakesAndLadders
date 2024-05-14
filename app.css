@@ -39,7 +39,7 @@ h1{
 }
 
 img{
-    /* position: absolute; */
+    position: absolute;
     width: 610px;
     height: 610px;
 }
@@ -53,3 +53,9 @@ img{
     width: 650px;
     height: auto;
  }
+
+.plyformat{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}

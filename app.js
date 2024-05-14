@@ -29,5 +29,12 @@ for (let i = 100; i > 0; i--) {
 
 let divBoard = document.getElementById("1");
 console.log(divBoard);
+let player2 = document.createElement("img");
+player2.setAttribute("src", "blue.png");
+player2.classList.add("plyformat");
+divBoard.append(player2);
+let player1 = document.createElement("img");
+player1.setAttribute("src", "red.png");
+player1.classList.add("plyformat");
+divBoard.append(player1);
 
-divBoard.style.backgroundColor = "red";
