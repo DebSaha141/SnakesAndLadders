@@ -1,6 +1,8 @@
 .format{
     width: 60px;
     height: 60px;
+    display: flex;
+    flex-direction: row-reverse;
     background-color: aqua;
     border: thin solid;
 }
@@ -37,9 +39,9 @@ h1{
 }
 
 img{
-    position: absolute;
-    width: 605px;
-    height: 605px;
+    /* position: absolute; */
+    width: 610px;
+    height: 610px;
 }
 
 
