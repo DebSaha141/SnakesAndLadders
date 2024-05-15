@@ -2,7 +2,11 @@
     font-family: "Poetsen One", sans-serif;
     font-weight: 400;
 }
-
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #81B622;
+}
 
 .format{
     width: 60px;
@@ -17,6 +21,11 @@
 h1{
     font-size: 50px;
     text-align: center;
+    color: lightgray;
+}
+
+#footer h4{
+    color: lightgray;
 }
 
 #diceGif{
@@ -34,7 +43,21 @@ h1{
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 20px;
-    background-color: aquamarine;
+    background-color: #3D550C;
+}
+
+
+
+#footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: 20px 0 0 0;
+    width: auto;
+    height: 100px;
+    background-color: #3D550C;
+    overflow: hidden;
 }
 
 #boardContainer{

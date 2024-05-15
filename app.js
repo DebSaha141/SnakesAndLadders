@@ -55,17 +55,18 @@ for (let i = 100; i > 0; i--) {
 let firstDiv = document.getElementById("1");
 
 let player2 = document.createElement("img");
-player2.setAttribute("src", "blue.png");
+player2.setAttribute("src", "./img/blue.png");
 player2.classList.add("plyformat");
 firstDiv.append(player2);
 
 let player1 = document.createElement("img");
-player1.setAttribute("src", "red.png");
+player1.setAttribute("src", "./img/red.png");
 player1.classList.add("plyformat");
 firstDiv.append(player1); 
 
 startReset.addEventListener("click", () => {
     if (startReset.innerText === "Start") {
+        commentry.innerText=""
         h2.innerText = "Player-1 Turn";
         rollBtn.disabled = false;
         startReset.innerText = "Reset";
@@ -81,7 +82,7 @@ startReset.addEventListener("click", () => {
         p1Pos = 1;
         h2.innerText = "Lets Play";
         playPoint.innerText = "Lets Roll!";
-        commentry.innerText="Click Start to Play!"
+        commentry.innerText="Click on Start to Play!"
         playerCount = "red";
         diceGif.removeAttribute("hidden");
         playPoint.setAttribute("hidden", "hidden");
@@ -90,85 +91,83 @@ startReset.addEventListener("click", () => {
 
 
 rollBtn.addEventListener("click", () => {
+    commentry.innerText = "";
     let inc = rollDice();
     if (playerCount === "red") {
         playPoint.innerText=`Player-1 got ${inc}`;
         if (p1Pos + inc <= 100) {
             p1Pos += inc;  
         }
-        console.log(inc, p1Pos);
         document.getElementById(`${p1Pos}`).append(player1);
         if (p1Pos in jump === true) {
             rollBtn.disabled = true;
             for (let i in jump) {
-                a++;
                 if (p1Pos == i) {
-                    p1Pos = jump[i];
-                    if (a < 4) {
+                    if ([5,14,53,64].includes(p1Pos)) {
                         commentry.innerText = "Yay!! Player-1 got a Ladder!";
                     }
                     else {
                         commentry.innerText = "Snap!! Player-1 got bitten by a Snake!";
-                        console.log(a);
                     }
+                    p1Pos = jump[i];
                 }
             }
-            a = 0;
             setTimeout(() => {
                 document.getElementById(`${p1Pos}`).append(player1);
                 rollBtn.disabled = false;
             },1000);
         }
-        if (p1Pos === 100) {
-            alert("Game Over");
-            rollBtn.disabled = true;
-        }
         if (inc !== 6) {
             playerCount = "blue";
             h2.innerText = "Player-2 Turn";
-        }
-        
+        }        
     }
     else if (playerCount === "blue") {
         playPoint.innerText=`Player-2 got ${inc}`;
         if (p2Pos + inc <= 100) {
             p2Pos += inc;   
         }
-        console.log(inc, p2Pos);
         document.getElementById(`${p2Pos}`).append(player2);
         if (p2Pos in jump === true) {
             rollBtn.disabled = true;
             for (let i in jump) {
-                a++;
                 if (p2Pos == i) {
+                    if ([5,14,53,64].includes(p2Pos)) {
+                        commentry.innerText = "Yay!! Player-2 got a Ladder!";
+                    }
+                    else {
+                        commentry.innerText = "Snap!! Player-2 got bitten by a Snake!";
+                    }
                     p2Pos = jump[i];
                 }
-                if (a < 4) {
-                    commentry.innerText = "Yay!! Player-2 got a Ladder!";
-                }
-                else {
-                    commentry.innerText = "Snap!! Player-2 got bitten by a Snake!";
-                    console.log(a);
-                }
             }
-            a = 0;
             setTimeout(() => {
                 document.getElementById(`${p2Pos}`).append(player2);
                 rollBtn.disabled = false;
             },1000);
-        }
-        if (p2Pos === 100) {
-            alert("Game Over");
-            rollBtn.disabled = true;
         }
         if (inc !== 6) {
             playerCount = "red";
             h2.innerText = "Player-1 Turn";
         }
     }
+    if (p1Pos === 100) {
+        setTimeout(() => {
+            commentry.innerText = "Reset To Play Again!";
+        },2000);
+        commentry.innerText = "Player 1 Wins!!!";
+        h2.innerText = "Player 1 Wins!!!";
+        rollBtn.disabled = true;
+    }
+    else if (p2Pos === 100) {
+        setTimeout(() => {
+            commentry.innerText = "Reset To Play Again!";
+        },2000);
+        commentry.innerText = "Player 2 Wins!!!";
+        h2.innerText = "Player 2 Wins!!!";
+        rollBtn.disabled = true;
+    }
 });
-
-
 
 function rollDice() {
     return (Math.floor(Math.random() * 6) + 1);
