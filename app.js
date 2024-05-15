@@ -15,6 +15,12 @@ const jump = {
     97: 61
 }
 let p1Pos = 1;
+let p2Pos = 1;
+let rollBtn = document.querySelector("#roll");
+let startReset = document.querySelector("#startRestart");
+let h2 = document.querySelector("h2");
+rollBtn.disabled = true;
+let playerCount = "red";
 
 for (let i = 100; i > 0; i--) {
     let boardsq = document.createElement("div");
@@ -40,42 +46,91 @@ for (let i = 100; i > 0; i--) {
     board.append(boardsq);
 }
 
+let firstDiv = document.getElementById("1");
+
+let player2 = document.createElement("img");
+player2.setAttribute("src", "blue.png");
+player2.classList.add("plyformat");
+firstDiv.append(player2);
+
 let player1 = document.createElement("img");
 player1.setAttribute("src", "red.png");
 player1.classList.add("plyformat");
-let divBoard = document.getElementById("1");
-divBoard.append(player1);
+firstDiv.append(player1); 
 
-let rollBtn = document.querySelector("#roll");
-rollBtn.addEventListener("click", () => {
-    let inc = rollDice();
-    if (p1Pos + inc <= 100) {
-        p1Pos += inc;   
+startReset.addEventListener("click", () => {
+    if (startReset.innerText === "Start") {
+        h2.innerText = "Player-1 Turn";
+        rollBtn.disabled = false;
+        startReset.innerText = "Reset";
     }
-    console.log(inc, p1Pos);
-    document.getElementById(`${p1Pos}`).append(player1);
-    if (p1Pos in jump === true) {
+    else {
         rollBtn.disabled = true;
-        for (let i in jump) {
-            if (p1Pos == i) {
-                p1Pos = jump[i];
-            }
-        }
-        setTimeout(() => {
-            document.getElementById(`${p1Pos}`).append(player1);
-            rollBtn.disabled = false;
-        },1000);
-    }
-    if (p1Pos === 100) {
-        alert("Game Over");
-        rollBtn.disabled = true;
+        startReset.innerText = "Start";
+        firstDiv.append(player2);
+        p2Pos = 1;
+        firstDiv.append(player1);
+        p1Pos = 1;
+        h2.innerText = "Lets Play";
     }
 });
 
-// let player2 = document.createElement("img");
-// player2.setAttribute("src", "blue.png");
-// player2.classList.add("plyformat");
-// divBoard.append(player2);
+
+rollBtn.addEventListener("click", () => {
+    let inc = rollDice();
+    if (playerCount === "red") {
+        playerCount = "blue";
+        if (p1Pos + inc <= 100) {
+            p1Pos += inc;   
+        }
+        console.log(inc, p1Pos);
+        document.getElementById(`${p1Pos}`).append(player1);
+        if (p1Pos in jump === true) {
+            rollBtn.disabled = true;
+            for (let i in jump) {
+                if (p1Pos == i) {
+                    p1Pos = jump[i];
+                }
+            }
+            setTimeout(() => {
+                document.getElementById(`${p1Pos}`).append(player1);
+                rollBtn.disabled = false;
+            },1000);
+        }
+        if (p1Pos === 100) {
+            alert("Game Over");
+            rollBtn.disabled = true;
+        }
+        h2.innerText = "Player-2 Turn";
+    }
+    else if(playerCount==="blue") {
+        playerCount = "red";
+        if (p2Pos + inc <= 100) {
+            p2Pos += inc;   
+        }
+        console.log(inc, p2Pos);
+        document.getElementById(`${p2Pos}`).append(player2);
+        if (p2Pos in jump === true) {
+            rollBtn.disabled = true;
+            for (let i in jump) {
+                if (p2Pos == i) {
+                    p2Pos = jump[i];
+                }
+            }
+            setTimeout(() => {
+                document.getElementById(`${p2Pos}`).append(player2);
+                rollBtn.disabled = false;
+            },1000);
+        }
+        if (p2Pos === 100) {
+            alert("Game Over");
+            rollBtn.disabled = true;
+        }
+        h2.innerText = "Player-1 Turn";
+    }
+});
+
+
 
 function rollDice() {
     return (Math.floor(Math.random() * 6) + 1);
