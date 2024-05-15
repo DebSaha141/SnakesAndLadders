@@ -1,5 +1,6 @@
 const board = document.querySelector("#board");
 let c = 0;
+let a = 0; //used to check if its ladder or snake
 let ch = [90, 70, 50, 30, 10];
 let noch = [100, 80, 60, 40, 20]
 let bool = false;
@@ -21,6 +22,11 @@ let startReset = document.querySelector("#startRestart");
 let h2 = document.querySelector("h2");
 rollBtn.disabled = true;
 let playerCount = "red";
+let diceGif = document.querySelector("#diceGif");
+let playPoint = document.querySelector("#playPoint");
+let commentry = document.querySelector("#commentry");
+playPoint.setAttribute("hidden", "hidden");
+
 
 for (let i = 100; i > 0; i--) {
     let boardsq = document.createElement("div");
@@ -63,6 +69,8 @@ startReset.addEventListener("click", () => {
         h2.innerText = "Player-1 Turn";
         rollBtn.disabled = false;
         startReset.innerText = "Reset";
+        diceGif.setAttribute("hidden", "hidden");
+        playPoint.removeAttribute("hidden");
     }
     else {
         rollBtn.disabled = true;
@@ -72,6 +80,11 @@ startReset.addEventListener("click", () => {
         firstDiv.append(player1);
         p1Pos = 1;
         h2.innerText = "Lets Play";
+        playPoint.innerText = "Lets Roll!";
+        commentry.innerText="Click Start to Play!"
+        playerCount = "red";
+        diceGif.removeAttribute("hidden");
+        playPoint.setAttribute("hidden", "hidden");
     }
 });
 
@@ -79,19 +92,28 @@ startReset.addEventListener("click", () => {
 rollBtn.addEventListener("click", () => {
     let inc = rollDice();
     if (playerCount === "red") {
-        playerCount = "blue";
+        playPoint.innerText=`Player-1 got ${inc}`;
         if (p1Pos + inc <= 100) {
-            p1Pos += inc;   
+            p1Pos += inc;  
         }
         console.log(inc, p1Pos);
         document.getElementById(`${p1Pos}`).append(player1);
         if (p1Pos in jump === true) {
             rollBtn.disabled = true;
             for (let i in jump) {
+                a++;
                 if (p1Pos == i) {
                     p1Pos = jump[i];
+                    if (a < 4) {
+                        commentry.innerText = "Yay!! Player-1 got a Ladder!";
+                    }
+                    else {
+                        commentry.innerText = "Snap!! Player-1 got bitten by a Snake!";
+                        console.log(a);
+                    }
                 }
             }
+            a = 0;
             setTimeout(() => {
                 document.getElementById(`${p1Pos}`).append(player1);
                 rollBtn.disabled = false;
@@ -101,10 +123,14 @@ rollBtn.addEventListener("click", () => {
             alert("Game Over");
             rollBtn.disabled = true;
         }
-        h2.innerText = "Player-2 Turn";
+        if (inc !== 6) {
+            playerCount = "blue";
+            h2.innerText = "Player-2 Turn";
+        }
+        
     }
-    else if(playerCount==="blue") {
-        playerCount = "red";
+    else if (playerCount === "blue") {
+        playPoint.innerText=`Player-2 got ${inc}`;
         if (p2Pos + inc <= 100) {
             p2Pos += inc;   
         }
@@ -113,10 +139,19 @@ rollBtn.addEventListener("click", () => {
         if (p2Pos in jump === true) {
             rollBtn.disabled = true;
             for (let i in jump) {
+                a++;
                 if (p2Pos == i) {
                     p2Pos = jump[i];
                 }
+                if (a < 4) {
+                    commentry.innerText = "Yay!! Player-2 got a Ladder!";
+                }
+                else {
+                    commentry.innerText = "Snap!! Player-2 got bitten by a Snake!";
+                    console.log(a);
+                }
             }
+            a = 0;
             setTimeout(() => {
                 document.getElementById(`${p2Pos}`).append(player2);
                 rollBtn.disabled = false;
@@ -126,7 +161,10 @@ rollBtn.addEventListener("click", () => {
             alert("Game Over");
             rollBtn.disabled = true;
         }
-        h2.innerText = "Player-1 Turn";
+        if (inc !== 6) {
+            playerCount = "red";
+            h2.innerText = "Player-1 Turn";
+        }
     }
 });
 

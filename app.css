@@ -19,6 +19,10 @@ h1{
     text-align: center;
 }
 
+#diceGif{
+    width: 200px;
+    height: 200px;
+}
 
 /* #container{
     display: flex;
@@ -32,10 +36,19 @@ h1{
     margin-bottom: 20px;
     background-color: aquamarine;
 }
+
 #boardContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#playPoint{
+    font-size: 30px;
+}
+
+#commentry{
+    font-size: 20px;
 }
 
 #gameContainer{
