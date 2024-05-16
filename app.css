@@ -156,6 +156,7 @@ button{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 150px;
     }
 
     #diceGif{
