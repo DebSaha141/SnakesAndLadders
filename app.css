@@ -2,6 +2,13 @@
     font-family: "Poetsen One", sans-serif;
     font-weight: 400;
 }
+
+#board{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -112,4 +119,91 @@ button{
     position: absolute;
     width: 50px;
     height: 50px;
+}
+
+
+@media (max-width:580px){
+
+    .format{
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: green;
+        border: thin solid;
+    }
+
+    .boardimg{
+        /* position: absolute; */
+        border: medium solid;
+        width: 300px;
+        height: 300px;
+    }
+
+    #board{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 320px;
+        height: auto;
+     }
+
+    #boardContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #diceGif{
+        width: 100px;
+        height: 100px;
+    }
+
+    h1{
+        font-size: 30px;
+    }
+
+    #controls{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .plyformat{
+        position: absolute;
+        width: 25px;
+        height: 25px;
+    }
+
+    #footer{
+        padding-top: 5px;
+        height: 50px;
+        width: 100%;
+    }
+
+    #footer h4{
+        font-size: 15px;
+    }
+
+    h2{
+        font-size: 40px;
+    }
+    
+    button{
+        width: 100px;
+        height: 50px;
+        margin: 20px 10px;
+    }
+
+    #commentry{
+        font-size: 15px;
+    }
+
+    #playPoint{
+        font-size: 20px;
+    }
 }
